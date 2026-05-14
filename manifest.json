@@ -24,7 +24,11 @@
       ],
      "js": [
   "scripts/analyzer.js",
+  "scripts/overlay.js",
   "scripts/content.js"
+      ]
+      "css": [
+  "styles/overlay.css"
       ]
     }
   ]
