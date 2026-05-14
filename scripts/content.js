@@ -18,6 +18,7 @@ if (blockedDomains.some(domain => currentDomain.includes(domain))) {
 let lastOverlayTimestamp = 0;
 
 const OVERLAY_COOLDOWN = 120000;
+let baselineScrollSpeed = null;
 let telemetry = {
   scrollEvents: 0,
   totalScrollDistance: 0,
