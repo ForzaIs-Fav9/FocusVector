@@ -117,7 +117,8 @@ window.updateDebugPanel({
   driftScore: analysis.driftScore,
   averageScrollSpeed,
   idleEvents: telemetry.idleEvents,
-  backwardScrolls: telemetry.backwardScrolls
+  backwardScrolls: telemetry.backwardScrolls,
+  signals: analysis.signals
 });
   
 const now = Date.now();
