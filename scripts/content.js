@@ -102,7 +102,7 @@ setInterval(() => {
   backwardScrolls: telemetry.backwardScrolls
 };
 
-const analysis = analyzeTelemetry(telemetrySnapshot);
+const analysis = window.analyzeTelemetry(telemetrySnapshot);
 
 console.log({
   telemetry: telemetrySnapshot,
