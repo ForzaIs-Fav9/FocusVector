@@ -115,17 +115,29 @@ scrollingTimeout = setTimeout(() => {
   }, 5000);
 });
 
+function updateBaseline(currentSpeed) {
+  if (baselineScrollSpeed === null) {
+    baselineScrollSpeed = currentSpeed;
+    return;
+  }
+
+  baselineScrollSpeed =
+    baselineScrollSpeed * 0.9 +
+    currentSpeed * 0.1;
+}
+
 setInterval(() => {
   const averageScrollSpeed =
     telemetry.scrollEvents > 0
       ? telemetry.totalScrollSpeed / telemetry.scrollEvents
       : 0;
-
+  updateBaseline(averageScrollSpeed);
   const telemetrySnapshot = {
   windowDuration: "30s",
   scrollEvents: telemetry.scrollEvents,
   totalScrollDistance: telemetry.totalScrollDistance,
   averageScrollSpeed,
+  baselineScrollSpeed,
   idleEvents: telemetry.idleEvents,
   maxProgress: telemetry.maxProgress,
   backwardScrolls: telemetry.backwardScrolls
