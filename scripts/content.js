@@ -29,6 +29,8 @@ let telemetry = {
 
 let lastScrollY = window.scrollY;
 let lastTimestamp = Date.now();
+let isBacktracking = false;
+let backtrackingTimeout = null;
 
 let idleTimer = null;
 let isIdle = false;
@@ -75,8 +77,18 @@ window.addEventListener("scroll", () => {
   }
 
   if (deltaY < 0) {
-    telemetry.backwardScrolls++;
-  }
+    if (!isBacktracking) {
+       telemetry.backwardScrolls++;
+
+      isBacktracking = true;
+    }
+
+    clearTimeout(backtrackingTimeout);
+
+    backtrackingTimeout = setTimeout(() => {
+       isBacktracking = false;
+    }, 1000);
+}
 
   lastScrollY = currentScrollY;
   lastTimestamp = currentTimestamp;
