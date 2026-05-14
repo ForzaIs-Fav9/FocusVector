@@ -4,7 +4,9 @@ function analyzeTelemetry(telemetry) {
   let state = "focused";
 
   const slowScrolling =
-    telemetry.averageScrollSpeed < 0.5;
+    telemetry.baselineScrollSpeed !== null &&
+    telemetry.averageScrollSpeed < 
+      telemetry.baselineScrollSpeed* 0.6;
 
   const frequentIdle =
     telemetry.idleEvents >= 1;
