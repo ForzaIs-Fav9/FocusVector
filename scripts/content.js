@@ -112,6 +112,14 @@ console.log({
   telemetry: telemetrySnapshot,
   analysis
 });
+window.updateDebugPanel({
+  state: analysis.state,
+  driftScore: analysis.driftScore,
+  averageScrollSpeed,
+  idleEvents: telemetry.idleEvents,
+  backwardScrolls: telemetry.backwardScrolls
+});
+  
 const now = Date.now();
 
 if (
