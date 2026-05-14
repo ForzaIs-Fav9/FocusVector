@@ -1,3 +1,4 @@
+console.log("Overlay function:", window.showFocusOverlay);
 const blockedDomains = [
   "twitter.com",
   "x.com",
