@@ -1,21 +1,44 @@
 function analyzeTelemetry(telemetry) {
   let driftScore = 0;
 
-  if (telemetry.averageScrollSpeed < 0.3) {
-    driftScore += 1;
-  }
-
-  if (telemetry.idleEvents >= 2) {
-    driftScore += 1;
-  }
-
-  if (telemetry.backwardScrolls >= 5) {
-    driftScore += 1;
-  }
-
   let state = "focused";
 
-  if (driftScore >= 3) {
+  const slowScrolling =
+    telemetry.averageScrollSpeed < 0.5;
+
+  const frequentIdle =
+    telemetry.idleEvents >= 1;
+
+  const heavyBacktracking =
+    telemetry.backwardScrolls >= 5;
+
+  const lowProgress =
+    telemetry.maxProgress < 0.15;
+
+  if (slowScrolling) {
+    driftScore += 1;
+  }
+
+  if (frequentIdle) {
+    driftScore += 1;
+  }
+
+  if (heavyBacktracking) {
+    driftScore += 1;
+  }
+
+  if (lowProgress) {
+    driftScore += 1;
+  }
+
+  const possibleRecoveryPattern =
+    frequentIdle &&
+    heavyBacktracking &&
+    slowScrolling;
+
+  if (possibleRecoveryPattern) {
+    state = "drift_recovery";
+  } else if (driftScore >= 3) {
     state = "possible_drift";
   } else if (driftScore === 2) {
     state = "fragmented";
@@ -23,7 +46,14 @@ function analyzeTelemetry(telemetry) {
 
   return {
     state,
-    driftScore
+    driftScore,
+    signals: {
+      slowScrolling,
+      frequentIdle,
+      heavyBacktracking,
+      lowProgress,
+      possibleRecoveryPattern
+    }
   };
 }
 
