@@ -22,8 +22,9 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": [
-        "scripts/content.js"
+     "js": [
+  "scripts/analyzer.js",
+  "scripts/content.js"
       ]
     }
   ]
