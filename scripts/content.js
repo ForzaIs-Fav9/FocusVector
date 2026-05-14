@@ -1,3 +1,10 @@
+let telemetry = {
+  scrollEvents: 0,
+  totalScrollDistance: 0,
+  totalScrollSpeed: 0,
+  idleEvents: 0
+};
+
 let lastScrollY = window.scrollY;
 let lastTimestamp = Date.now();
 
@@ -8,10 +15,9 @@ function triggerIdleState() {
   if (!isIdle) {
     isIdle = true;
 
-    console.log({
-      state: "idle",
-      timestamp: Date.now()
-    });
+    telemetry.idleEvents++;
+
+    console.log("User became idle");
   }
 }
 
@@ -24,13 +30,9 @@ window.addEventListener("scroll", () => {
 
   const scrollSpeed = Math.abs(deltaY / deltaTime);
 
-  console.log({
-    state: "scrolling",
-    scrollY: currentScrollY,
-    deltaY,
-    deltaTime,
-    scrollSpeed
-  });
+  telemetry.scrollEvents++;
+  telemetry.totalScrollDistance += Math.abs(deltaY);
+  telemetry.totalScrollSpeed += scrollSpeed;
 
   lastScrollY = currentScrollY;
   lastTimestamp = currentTimestamp;
@@ -43,3 +45,25 @@ window.addEventListener("scroll", () => {
     triggerIdleState();
   }, 5000);
 });
+
+setInterval(() => {
+  const averageScrollSpeed =
+    telemetry.scrollEvents > 0
+      ? telemetry.totalScrollSpeed / telemetry.scrollEvents
+      : 0;
+
+  console.log({
+    windowDuration: "30s",
+    scrollEvents: telemetry.scrollEvents,
+    totalScrollDistance: telemetry.totalScrollDistance,
+    averageScrollSpeed,
+    idleEvents: telemetry.idleEvents
+  });
+
+  telemetry = {
+    scrollEvents: 0,
+    totalScrollDistance: 0,
+    totalScrollSpeed: 0,
+    idleEvents: 0
+  };
+}, 30000);
