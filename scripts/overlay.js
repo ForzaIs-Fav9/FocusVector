@@ -1,3 +1,5 @@
+console.log("Overlay script loaded");
+
 function showFocusOverlay(message) {
   const existingOverlay = document.getElementById("focusvector-overlay");
 
