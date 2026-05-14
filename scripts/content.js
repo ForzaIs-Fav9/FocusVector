@@ -1,3 +1,4 @@
+import { analyzeTelemetry } from "./analyzer.js";
 const blockedDomains = [
   "twitter.com",
   "x.com",
@@ -92,15 +93,22 @@ setInterval(() => {
       ? telemetry.totalScrollSpeed / telemetry.scrollEvents
       : 0;
 
-  console.log({
-    windowDuration: "30s",
-    scrollEvents: telemetry.scrollEvents,
-    totalScrollDistance: telemetry.totalScrollDistance,
-    averageScrollSpeed,
-    idleEvents: telemetry.idleEvents,
-    maxProgress: telemetry.maxProgress,
-    backwardScrolls: telemetry.backwardScrolls
-  });
+  const telemetrySnapshot = {
+  windowDuration: "30s",
+  scrollEvents: telemetry.scrollEvents,
+  totalScrollDistance: telemetry.totalScrollDistance,
+  averageScrollSpeed,
+  idleEvents: telemetry.idleEvents,
+  maxProgress: telemetry.maxProgress,
+  backwardScrolls: telemetry.backwardScrolls
+};
+
+const analysis = analyzeTelemetry(telemetrySnapshot);
+
+console.log({
+  telemetry: telemetrySnapshot,
+  analysis
+});
 
   telemetry = {
     scrollEvents: 0,
