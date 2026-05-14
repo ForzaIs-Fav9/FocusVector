@@ -1,3 +1,19 @@
+const blockedDomains = [
+  "twitter.com",
+  "x.com",
+  "youtube.com",
+  "reddit.com",
+  "instagram.com",
+  "linkedin.com"
+];
+
+const currentDomain = window.location.hostname;
+
+if (blockedDomains.some(domain => currentDomain.includes(domain))) {
+  console.log("FocusVector disabled on this site");
+  throw new Error("Blocked domain");
+}
+
 let telemetry = {
   scrollEvents: 0,
   totalScrollDistance: 0,
