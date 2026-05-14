@@ -109,14 +109,11 @@ console.log({
   telemetry: telemetrySnapshot,
   analysis
 });
-if (analysis.state === "possible_drift") {
-  console.log("Attempting to show overlay");
+console.log("Attempting overlay trigger");
 
-  console.log(window.showFocusOverlay);
-
-  window.showFocusOverlay(
-    "Looks like you may have lost the thread. Want a quick reset?"
-  );
+window.showFocusOverlay(
+  "Looks like you may have lost the thread."
+);
 }
 
   telemetry = {
