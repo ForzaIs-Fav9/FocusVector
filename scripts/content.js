@@ -5,6 +5,7 @@ const blockedDomains = [
   "youtube.com",
   "reddit.com",
   "instagram.com",
+  "web.whatsapp.com",
   "linkedin.com"
 ];
 
@@ -153,6 +154,7 @@ window.updateDebugPanel({
   state: analysis.state,
   driftScore: analysis.driftScore,
   averageScrollSpeed,
+  baselineScrollSpeed,
   idleEvents: telemetry.idleEvents,
   backwardScrolls: telemetry.backwardScrolls,
   signals: analysis.signals
