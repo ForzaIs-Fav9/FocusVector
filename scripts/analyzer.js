@@ -1,4 +1,4 @@
-export function analyzeTelemetry(telemetry) {
+function analyzeTelemetry(telemetry) {
   let driftScore = 0;
 
   if (telemetry.averageScrollSpeed < 0.3) {
@@ -26,3 +26,5 @@ export function analyzeTelemetry(telemetry) {
     driftScore
   };
 }
+
+window.analyzeTelemetry = analyzeTelemetry;
