@@ -15,6 +15,7 @@ function updateDebugPanel(data) {
   <strong>State:</strong> ${data.state}<br>
   <strong>Drift Score:</strong> ${data.driftScore}<br>
   <strong>Avg Speed:</strong> ${data.averageScrollSpeed.toFixed(2)}<br>
+  <strong>Baseline Speed:</strong> ${data.baselineScrollSpeed?.toFixed(2) || "N/A"}<br>
   <strong>Idle Events:</strong> ${data.idleEvents}<br>
   <strong>Backward Scrolls:</strong> ${data.backwardScrolls}<br><br>
 
