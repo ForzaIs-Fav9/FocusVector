@@ -1,4 +1,3 @@
-import { analyzeTelemetry } from "./analyzer.js";
 const blockedDomains = [
   "twitter.com",
   "x.com",
