@@ -22,13 +22,13 @@
       "matches": [
         "<all_urls>"
       ],
-     "js": [
-  "scripts/analyzer.js",
-  "scripts/overlay.js",
-  "scripts/content.js"
-      ]
+      "js": [
+        "scripts/analyzer.js",
+        "scripts/overlay.js",
+        "scripts/content.js"
+      ],
       "css": [
-  "styles/overlay.css"
+        "styles/overlay.css"
       ]
     }
   ]
