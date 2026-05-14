@@ -25,6 +25,7 @@
       "js": [
         "scripts/analyzer.js",
         "scripts/overlay.js",
+        "scripts/debug.js",
         "scripts/content.js"
       ],
       "css": [
