@@ -109,6 +109,10 @@ console.log({
   analysis
 });
 if (analysis.state === "possible_drift") {
+  console.log("Attempting to show overlay");
+
+  console.log(window.showFocusOverlay);
+
   window.showFocusOverlay(
     "Looks like you may have lost the thread. Want a quick reset?"
   );
