@@ -31,7 +31,8 @@ let lastScrollY = window.scrollY;
 let lastTimestamp = Date.now();
 let isBacktracking = false;
 let backtrackingTimeout = null;
-
+let isScrolling = false;
+let scrollingTimeout = null;
 let idleTimer = null;
 let isIdle = false;
 
@@ -66,7 +67,18 @@ window.addEventListener("scroll", () => {
 
   const scrollSpeed = Math.abs(deltaY / deltaTime);
 
+  if (!isScrolling) {
   telemetry.scrollEvents++;
+
+  isScrolling = true;
+}
+
+clearTimeout(scrollingTimeout);
+
+scrollingTimeout = setTimeout(() => {
+  isScrolling = false;
+}, 800);
+  
   telemetry.totalScrollDistance += Math.abs(deltaY);
   telemetry.totalScrollSpeed += scrollSpeed;
 
