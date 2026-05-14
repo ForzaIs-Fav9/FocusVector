@@ -32,3 +32,25 @@
   border-radius: 8px;
   cursor: pointer;
 }
+#focusvector-debug {
+  position: fixed;
+
+  top: 20px;
+  right: 20px;
+
+  z-index: 999999;
+
+  background: rgba(0, 0, 0, 0.9);
+  color: #00ff88;
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  font-family: monospace;
+  font-size: 13px;
+
+  width: 220px;
+
+  line-height: 1.5;
+}
