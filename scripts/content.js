@@ -15,6 +15,9 @@ if (blockedDomains.some(domain => currentDomain.includes(domain))) {
   throw new Error("Blocked domain");
 }
 
+let lastOverlayTimestamp = 0;
+
+const OVERLAY_COOLDOWN = 120000;
 let telemetry = {
   scrollEvents: 0,
   totalScrollDistance: 0,
@@ -109,11 +112,20 @@ console.log({
   telemetry: telemetrySnapshot,
   analysis
 });
-console.log("Attempting overlay trigger");
+const now = Date.now();
 
-window.showFocusOverlay(
-  "Looks like you may have lost the thread."
-);
+if (
+  analysis.state === "possible_drift" &&
+  now - lastOverlayTimestamp > OVERLAY_COOLDOWN
+) {
+  console.log("Attempting overlay trigger");
+
+  window.showFocusOverlay(
+    "Looks like you may have lost the thread."
+  );
+
+  lastOverlayTimestamp = now;
+}
   telemetry = {
     scrollEvents: 0,
     totalScrollDistance: 0,
