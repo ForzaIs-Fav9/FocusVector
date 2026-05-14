@@ -18,7 +18,9 @@ let telemetry = {
   scrollEvents: 0,
   totalScrollDistance: 0,
   totalScrollSpeed: 0,
-  idleEvents: 0
+  idleEvents: 0,
+  maxProgress: 0,
+  backwardScrolls: 0
 };
 
 let lastScrollY = window.scrollY;
@@ -26,6 +28,18 @@ let lastTimestamp = Date.now();
 
 let idleTimer = null;
 let isIdle = false;
+
+function getReadingProgress() {
+  const scrollTop = window.scrollY;
+  const documentHeight =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  if (documentHeight <= 0) {
+    return 0;
+  }
+
+  return scrollTop / documentHeight;
+}
 
 function triggerIdleState() {
   if (!isIdle) {
@@ -50,6 +64,16 @@ window.addEventListener("scroll", () => {
   telemetry.totalScrollDistance += Math.abs(deltaY);
   telemetry.totalScrollSpeed += scrollSpeed;
 
+  const progress = getReadingProgress();
+
+  if (progress > telemetry.maxProgress) {
+    telemetry.maxProgress = progress;
+  }
+
+  if (deltaY < 0) {
+    telemetry.backwardScrolls++;
+  }
+
   lastScrollY = currentScrollY;
   lastTimestamp = currentTimestamp;
 
@@ -73,13 +97,17 @@ setInterval(() => {
     scrollEvents: telemetry.scrollEvents,
     totalScrollDistance: telemetry.totalScrollDistance,
     averageScrollSpeed,
-    idleEvents: telemetry.idleEvents
+    idleEvents: telemetry.idleEvents,
+    maxProgress: telemetry.maxProgress,
+    backwardScrolls: telemetry.backwardScrolls
   });
 
   telemetry = {
     scrollEvents: 0,
     totalScrollDistance: 0,
     totalScrollSpeed: 0,
-    idleEvents: 0
+    idleEvents: 0,
+    maxProgress: 0,
+    backwardScrolls: 0
   };
 }, 30000);
