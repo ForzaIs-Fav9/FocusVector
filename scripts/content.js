@@ -108,6 +108,11 @@ console.log({
   telemetry: telemetrySnapshot,
   analysis
 });
+if (analysis.state === "possible_drift") {
+  window.showFocusOverlay(
+    "Looks like you may have lost the thread. Want a quick reset?"
+  );
+}
 
   telemetry = {
     scrollEvents: 0,
