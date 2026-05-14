@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "FocusVector",
+  "version": "0.1.0",
+  "description": "Behavior-based attention drift estimation for digital reading sessions.",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "scripts/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "scripts/content.js"
+      ]
+    }
+  ]
+}
