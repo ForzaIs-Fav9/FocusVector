@@ -114,8 +114,6 @@ console.log("Attempting overlay trigger");
 window.showFocusOverlay(
   "Looks like you may have lost the thread."
 );
-}
-
   telemetry = {
     scrollEvents: 0,
     totalScrollDistance: 0,
